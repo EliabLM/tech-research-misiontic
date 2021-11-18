@@ -11,6 +11,28 @@ const resolvers = {
       }
     },
   },
+
+  Mutation: {
+    crearUsuario: async (parent, args) => {
+      const { identificacion, nombre, apellido, email, password, estado, rol } =
+        args;
+
+      try {
+        const usuarioNuevo = await Usuario.create({
+          identificacion,
+          nombre,
+          apellido,
+          email,
+          password,
+          rol,
+          estado,
+        });
+        return usuarioNuevo;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  },
 };
 
 module.exports = resolvers;
