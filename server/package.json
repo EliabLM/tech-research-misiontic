@@ -1,0 +1,34 @@
+{
+  "name": "tech-research-misiontic",
+  "version": "1.0.0",
+  "description": "Proyecto Ciclo 4 Misión Tic 2022 Equipo Tech Research",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon .",
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EliabLM/tech-research-misiontic.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EliabLM/tech-research-misiontic/issues"
+  },
+  "homepage": "https://github.com/EliabLM/tech-research-misiontic#readme",
+  "dependencies": {
+    "apollo-server": "^3.5.0",
+    "dotenv": "^10.0.0",
+    "graphql": "^15.7.2",
+    "mongoose": "^6.0.13"
+  },
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.4.1"
+  }
+}
