@@ -39,6 +39,19 @@ const typeDefs = gql`
       rol: Enum_Rol!
       estado: Enum_EstadoUsuario
     ): Usuario
+
+    editarUsuario(
+      _id: ID!
+      identificacion: String
+      nombre: String
+      apellido: String
+      email: String
+      password: String
+      rol: Enum_Rol
+      estado: Enum_EstadoUsuario
+    ): Usuario
+
+    eliminarUsuario(_id: String!): Usuario
   }
 `;
 
