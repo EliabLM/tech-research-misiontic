@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Enum_EstadoUsuario, Enum_Rol } = require('./enums');
 
+
 const UsuariosSchema = mongoose.Schema({
   identificacion: {
     type: String,
@@ -43,5 +44,6 @@ const UsuariosSchema = mongoose.Schema({
     default: Enum_EstadoUsuario.PENDIENTE,
   },
 });
+
 
 module.exports = mongoose.model('Usuario', UsuariosSchema);
