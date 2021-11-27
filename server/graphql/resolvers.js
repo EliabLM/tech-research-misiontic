@@ -1,11 +1,43 @@
+const Proyecto = require('../models/Proyecto');
 const Usuario = require('../models/Usuario');
 
 const resolvers = {
   Query: {
-    getUsuarios: async () => {
+    getUsuarios: async (parent, args) => {
       try {
-        const usuarios = await Usuario.find({});
-        return usuarios;
+        if (args.rol === 'ADMINISTRADOR') {
+          const usuarios = await Usuario.find({});
+          return usuarios;
+        } else {
+          return null;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    getUsuario: async (parent, args) => {
+      try {
+        const usuario = await Usuario.findById({ _id: args._id });
+        return usuario;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    getProyectos: async () => {
+      try {
+        const proyectos = await Proyecto.find({}).populate('lider');
+        return proyectos;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    getProyecto: async (parent, args) => {
+      try {
+        const proyecto = await Proyecto.findById(args._id).populate('lider');
+        return proyecto;
       } catch (error) {
         console.error(error);
       }
@@ -51,6 +83,21 @@ const resolvers = {
       }
     },
 
+    cambiarEstadoUsuario: async (parent, args) => {
+      try {
+        if (args.rol === 'ADMINISTRADOR') {
+          const usuario = await Usuario.findByIdAndUpdate(args._id, {
+            estado: args.estado,
+          });
+          return usuario;
+        } else {
+          return null;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
     eliminarUsuario: async (parent, args) => {
       try {
         const usuarioEliminado = await Usuario.findOneAndDelete({
@@ -58,6 +105,33 @@ const resolvers = {
         });
 
         return usuarioEliminado;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    crearProyecto: async (parent, args) => {
+      const {
+        nombre,
+        objetivosGenerales,
+        objetivosEspecificos,
+        presupuesto,
+        fechaInicio,
+        fechaFin,
+        lider,
+      } = args;
+
+      try {
+        const proyectoNuevo = await Proyecto.create({
+          nombre,
+          objetivosGenerales,
+          objetivosEspecificos,
+          presupuesto,
+          fechaInicio,
+          fechaFin,
+          lider,
+        });
+        return proyectoNuevo;
       } catch (error) {
         console.error(error);
       }
