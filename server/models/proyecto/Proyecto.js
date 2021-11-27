@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const { Enum_FaseProyecto, Enum_EstadoProyecto } = require('./enums');
+const { Enum_FaseProyecto, Enum_EstadoProyecto } = require('../enums');
 
 const ProyectoSchema = Schema({
   nombre: {
