@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const { Enum_EstadoUsuario, Enum_Rol } = require('./enums');
+const { Enum_EstadoUsuario, Enum_Rol } = require('../enums');
 
 const UsuarioSchema = Schema({
   identificacion: {
