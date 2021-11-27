@@ -1,5 +1,6 @@
 const Proyecto = require('../models/Proyecto');
 const Usuario = require('../models/Usuario');
+const bcryptjs = require('bcryptjs');
 
 const resolvers = {
   Query: {
@@ -47,19 +48,14 @@ const resolvers = {
   Mutation: {
     // ========== USUARIOS ==========
     crearUsuario: async (parent, args) => {
-      const { identificacion, nombre, apellido, email, password, estado, rol } =
-        args;
-
       try {
-        const usuarioNuevo = await Usuario.create({
-          identificacion,
-          nombre,
-          apellido,
-          email,
-          password,
-          rol,
-          estado,
-        });
+        const usuarioNuevo = new Usuario(args);
+
+        const salt = await bcryptjs.genSalt(10);
+        usuarioNuevo.password = await bcryptjs.hash(args.password, salt);
+
+        await usuarioNuevo.save();
+
         return usuarioNuevo;
       } catch (error) {
         console.error(error);
