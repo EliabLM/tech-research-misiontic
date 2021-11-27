@@ -52,14 +52,15 @@ const typeDefs = gql`
   }
 
   type Query {
-    getUsuarios(rol: Enum_Rol!): [Usuario]
-    getUsuario(_id: ID!): Usuario
+    obtenerUsuarios(rol: Enum_Rol!): [Usuario]
+    obtenerUsuario(_id: ID!): Usuario
 
-    getProyectos: [Proyecto]
-    getProyecto(_id: ID!): Proyecto
+    obtenerProyectos: [Proyecto]
+    obtenerProyecto(_id: ID!): Proyecto
   }
 
   type Mutation {
+    # ========== USUARIOS ==========
     crearUsuario(
       identificacion: String!
       nombre: String!
@@ -84,9 +85,11 @@ const typeDefs = gql`
       estado: Enum_EstadoUsuario!
     ): Usuario
 
-    eliminarUsuario(_id: String!): Usuario
+    eliminarUsuario(_id: ID!): Usuario
 
+    # ========== PROYECTOS ==========
     crearProyecto(
+      rol: Enum_Rol!
       nombre: String!
       objetivosGenerales: [String]!
       objetivosEspecificos: [String]!
@@ -94,6 +97,18 @@ const typeDefs = gql`
       fechaInicio: Date!
       fechaFin: Date!
       lider: String!
+    ): Proyecto
+
+    editarProyecto(
+      rol: Enum_Rol!
+      _id: ID!
+      estado: Enum_EstadoProyecto!
+      nombre: String
+      objetivosGenerales: [String]
+      objetivosEspecificos: [String]
+      presupuesto: Float
+      fechaInicio: Date
+      fechaFin: Date
     ): Proyecto
   }
 `;

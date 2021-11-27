@@ -3,7 +3,7 @@ const Usuario = require('../models/Usuario');
 
 const resolvers = {
   Query: {
-    getUsuarios: async (parent, args) => {
+    obtenerUsuarios: async (parent, args) => {
       try {
         if (args.rol === 'ADMINISTRADOR') {
           const usuarios = await Usuario.find({});
@@ -16,7 +16,7 @@ const resolvers = {
       }
     },
 
-    getUsuario: async (parent, args) => {
+    obtenerUsuario: async (parent, args) => {
       try {
         const usuario = await Usuario.findById({ _id: args._id });
         return usuario;
@@ -25,7 +25,7 @@ const resolvers = {
       }
     },
 
-    getProyectos: async () => {
+    obtenerProyectos: async () => {
       try {
         const proyectos = await Proyecto.find({}).populate('lider');
         return proyectos;
@@ -34,7 +34,7 @@ const resolvers = {
       }
     },
 
-    getProyecto: async (parent, args) => {
+    obtenerProyecto: async (parent, args) => {
       try {
         const proyecto = await Proyecto.findById(args._id).populate('lider');
         return proyecto;
@@ -45,6 +45,7 @@ const resolvers = {
   },
 
   Mutation: {
+    // ========== USUARIOS ==========
     crearUsuario: async (parent, args) => {
       const { identificacion, nombre, apellido, email, password, estado, rol } =
         args;
@@ -91,6 +92,8 @@ const resolvers = {
           });
           return usuario;
         } else {
+          // Mensaje de falta de autorización
+          console.log('Falta autorización');
           return null;
         }
       } catch (error) {
@@ -110,8 +113,10 @@ const resolvers = {
       }
     },
 
+    // ========== PROYECTOS ==========
     crearProyecto: async (parent, args) => {
       const {
+        rol,
         nombre,
         objetivosGenerales,
         objetivosEspecificos,
@@ -121,19 +126,58 @@ const resolvers = {
         lider,
       } = args;
 
-      try {
-        const proyectoNuevo = await Proyecto.create({
-          nombre,
-          objetivosGenerales,
-          objetivosEspecificos,
-          presupuesto,
-          fechaInicio,
-          fechaFin,
-          lider,
-        });
-        return proyectoNuevo;
-      } catch (error) {
-        console.error(error);
+      if (rol !== 'LIDER') {
+        // Mensaje de falta de autorización
+        console.log('Falta autorización');
+        return null;
+      } else {
+        try {
+          const proyectoNuevo = await Proyecto.create({
+            nombre,
+            objetivosGenerales,
+            objetivosEspecificos,
+            presupuesto,
+            fechaInicio,
+            fechaFin,
+            lider,
+          });
+          return proyectoNuevo;
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    },
+
+    editarProyecto: async (parent, args) => {
+      const {
+        rol,
+        _id,
+        nombre,
+        objetivosGenerales,
+        objetivosEspecificos,
+        presupuesto,
+        fechaInicio,
+        fechaFin,
+      } = args;
+
+      if (rol !== 'LIDER') {
+        // Mensaje de falta de autorización
+        console.log('No autorizado');
+        return null;
+      } else {
+        try {
+          const proyectoEditado = await Proyecto.findByIdAndUpdate(_id, {
+            nombre,
+            objetivosGenerales,
+            objetivosEspecificos,
+            presupuesto,
+            fechaInicio,
+            fechaFin,
+          });
+          return proyectoEditado;
+        } catch (error) {
+          console.error(error);
+        }
       }
     },
   },
