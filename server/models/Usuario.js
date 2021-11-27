@@ -1,13 +1,12 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 const { Enum_EstadoUsuario, Enum_Rol } = require('./enums');
 
-
-const UsuariosSchema = mongoose.Schema({
+const UsuarioSchema = Schema({
   identificacion: {
     type: String,
     required: true,
-    trim: true,
     unique: true,
+    trim: true,
   },
   nombre: {
     type: String,
@@ -22,8 +21,8 @@ const UsuariosSchema = mongoose.Schema({
   email: {
     type: String,
     required: true,
-    trim: true,
     unique: true,
+    trim: true,
   },
   password: {
     type: String,
@@ -45,5 +44,4 @@ const UsuariosSchema = mongoose.Schema({
   },
 });
 
-
-module.exports = mongoose.model('Usuario', UsuariosSchema);
+module.exports = model('Usuario', UsuarioSchema);

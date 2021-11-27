@@ -10,4 +10,27 @@ const Enum_Rol = {
   ESTUDIANTE: 'ESTUDIANTE',
 };
 
-module.exports = { Enum_EstadoUsuario, Enum_Rol };
+const Enum_EstadoInscripcion = {
+  ACEPTADA: 'ACEPTADA',
+  RECHAZADA: 'RECHAZADA',
+};
+
+const Enum_FaseProyecto = {
+  INICIADO: 'INICIADO',
+  DESARROLLO: 'DESARROLLO',
+  TERMINADO: 'TERMINADO',
+  NULO: '',
+};
+
+const Enum_EstadoProyecto = {
+  ACTIVO: 'ACTIVO',
+  INACTIVO: 'INACTIVO',
+};
+
+module.exports = {
+  Enum_EstadoUsuario,
+  Enum_Rol,
+  Enum_EstadoInscripcion,
+  Enum_FaseProyecto,
+  Enum_EstadoProyecto,
+};
