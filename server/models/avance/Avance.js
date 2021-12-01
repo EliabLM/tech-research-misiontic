@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const { Enum_FaseProyecto, Enum_EstadoProyecto } = require('../enums');
+const { Enum_FaseProyecto, Enum_EstadoProyecto, Enum_Rol } = require('../enums');
 
 const AvanceSchema = Schema({
     idProyecto: {
@@ -28,6 +28,12 @@ const AvanceSchema = Schema({
         unique: true,
         trim: true,
       },
+
+      estudiante: {
+        type: typeof Schema.Types.ObjectId,
+        ref: 'Usuario',
+        required: true,
+      },      
 
     });
     module.exports = model('Avance', AvanceSchema);
