@@ -3,14 +3,10 @@ const bcryptjs = require('bcryptjs');
 
 const resolversUsuarios = {
   Query: {
-    obtenerUsuarios: async (parent, args) => {
+    obtenerUsuarios: async () => {
       try {
-        if (args.rol === 'ADMINISTRADOR') {
-          const usuarios = await Usuario.find({});
-          return usuarios;
-        } else {
-          return null;
-        }
+        const usuarios = await Usuario.find({});
+        return usuarios;
       } catch (error) {
         console.error(error);
       }
@@ -63,16 +59,10 @@ const resolversUsuarios = {
 
     cambiarEstadoUsuario: async (parent, args) => {
       try {
-        if (args.rol === 'ADMINISTRADOR') {
-          const usuario = await Usuario.findByIdAndUpdate(args._id, {
-            estado: args.estado,
-          });
-          return usuario;
-        } else {
-          // Mensaje de falta de autorización
-          console.log('Falta autorización');
-          return null;
-        }
+        const usuario = await Usuario.findByIdAndUpdate(args._id, {
+          estado: args.estado,
+        });
+        return usuario;
       } catch (error) {
         console.error(error);
       }

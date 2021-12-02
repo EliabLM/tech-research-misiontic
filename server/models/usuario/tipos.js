@@ -25,7 +25,7 @@ const tiposUsuario = gql`
   }
 
   type Query {
-    obtenerUsuarios(rol: Enum_Rol!): [Usuario]
+    obtenerUsuarios: [Usuario]
     obtenerUsuario(_id: ID!): Usuario
   }
 
@@ -48,11 +48,7 @@ const tiposUsuario = gql`
       password: String
     ): Usuario
 
-    cambiarEstadoUsuario(
-      rol: Enum_Rol!
-      _id: ID!
-      estado: Enum_EstadoUsuario!
-    ): Usuario
+    cambiarEstadoUsuario(_id: ID!, estado: Enum_EstadoUsuario!): Usuario
 
     eliminarUsuario(_id: ID!): Usuario
   }
