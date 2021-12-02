@@ -22,15 +22,15 @@ const tiposAvance = gql`
   }
 
   type Avance {
-    idProyecto: _id!    
+    idProyecto: ID!    
     fechaAvance: Date!
     descripcion: String!
     observacionesLider: String!
     estudiante: Usuario!        
   }
 
-type Query {
-    obtenerAvance: [Avance]
+  type Query {
+    obtenerAvances: [Avance]
     obtenerAvance(_id: ID!): Avance
   }
 
