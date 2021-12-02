@@ -13,6 +13,7 @@ const Enum_Rol = {
 const Enum_EstadoInscripcion = {
   ACEPTADA: 'ACEPTADA',
   RECHAZADA: 'RECHAZADA',
+  PENDIENTE: 'PENDIENTE',
 };
 
 const Enum_FaseProyecto = {
