@@ -4,23 +4,23 @@ const resolversAvances = {
   Query: {
     obtenerAvances: async () => {
       try {
-        const avances = await Avance.find({}).populate('lider');
+        const avances = await Avance.find({}).populate('estudiante');
         return avances;
       } catch (error) {
         console.error(error);
       }
     },
-  
+
     obtenerAvance: async (parent, args) => {
       try {
-        const avance = await Avance.findById(args._id).populate('lider');
+        const avance = await Avance.findById(args._id).populate('estudiante');
         return avance;
       } catch (error) {
         console.error(error);
       }
     },
   },
-  
+
   Mutation: {
     crearAvance: async (parent, args) => {
       if (args.rol !== 'ESTUDIANTE') {
@@ -31,7 +31,7 @@ const resolversAvances = {
         try {
           const avanceNuevo = await Avance.create({
             fechaAvance: args.fechaAvance,
-            descripcion: args.descripcion,              
+            descripcion: args.descripcion,
             estudiante: args.estudiante,
           });
           return avanceNuevo;
@@ -40,7 +40,7 @@ const resolversAvances = {
         }
       }
     },
-  
+
     editarAvance: async (parent, args) => {
       if (args.rol !== 'LIDER') {
         // Mensaje de falta de autorización

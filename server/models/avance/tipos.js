@@ -22,11 +22,11 @@ const tiposAvance = gql`
   }
 
   type Avance {
-    idProyecto: ID!    
+    idProyecto: ID!
     fechaAvance: Date!
     descripcion: String!
     observacionesLider: String!
-    estudiante: Usuario!        
+    estudiante: Usuario
   }
 
   type Query {
@@ -36,7 +36,7 @@ const tiposAvance = gql`
 
   type Mutation {
     crearAvance(
-      rol: Enum_Rol!      
+      rol: Enum_Rol!
       fechaAvance: Date!
       descripcion: String!
       estudiante: String!
@@ -44,12 +44,11 @@ const tiposAvance = gql`
 
     editarAvance(
       rol: Enum_Rol!
-      _id: ID!      
+      _id: ID!
       observacionesLider: String!
-      lider: String!      
+      lider: String!
     ): Avance
-  } 
-
+  }
 `;
 
 module.exports = tiposAvance;

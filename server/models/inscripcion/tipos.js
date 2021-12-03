@@ -4,21 +4,23 @@ const tiposInscripcion = gql`
   enum Enum_EstadoInscripcion {
     ACEPTADA
     RECHAZADA
-    PENDIENTE    
+    PENDIENTE
   }
-   
+
   type Inscripcion {
     _id: ID!
     estado: Enum_EstadoInscripcion
     fechaIngreso: Date
     fechaEgreso: Date
-    proyecto: Proyecto!
-    estudiante: Usuario!
+    proyecto: Proyecto
+    estudiante: Usuario
   }
+
   type Query {
     obtenerInscripciones: [Inscripcion]
-    
+    obtenerInscripcion(_id: ID!): Inscripcion
   }
+
   type Mutation {
     crearInscripcion(
       estado: Enum_EstadoInscripcion!
@@ -26,10 +28,7 @@ const tiposInscripcion = gql`
       proyecto: String!
       estudiante: String!
     ): Inscripcion
-    
   }
 `;
 
 module.exports = tiposInscripcion;
-
-
