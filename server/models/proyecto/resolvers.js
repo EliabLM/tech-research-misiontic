@@ -10,7 +10,7 @@ const resolversProyectos = {
         console.error(error);
       }
     },
-
+  
     obtenerProyecto: async (parent, args) => {
       try {
         const proyecto = await Proyecto.findById(args._id).populate('lider');

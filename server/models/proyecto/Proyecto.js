@@ -19,7 +19,7 @@ const ProyectoSchema = Schema({
       type: String,
       required: true,
     },
-  ],
+  ],  
   presupuesto: {
     type: Number,
     required: true,

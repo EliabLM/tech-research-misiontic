@@ -13,7 +13,7 @@ const tiposProyecto = gql`
   enum Enum_EstadoProyecto {
     ACTIVO
     INACTIVO
-  }
+  }  
 
   type Proyecto {
     _id: ID
