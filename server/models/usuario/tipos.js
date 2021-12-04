@@ -27,6 +27,7 @@ const tiposUsuario = gql`
   type Query {
     obtenerUsuarios: [Usuario]
     obtenerUsuario(_id: ID!): Usuario
+    obtenerEstudiantes: [Usuario]
   }
 
   type Mutation {

@@ -2,13 +2,13 @@ const { Schema, model } = require('mongoose');
 const { Enum_EstadoInscripcion } = require('../enums');
 
 const InscripcionSchema = Schema({
-  Proyecto: {
+  proyecto: {
     type: Schema.Types.ObjectId,
     ref: 'Proyecto',
     required: true,
   },
 
-  Estudiante: {
+  estudiante: {
     type: Schema.Types.ObjectId,
     ref: 'Usuario',
     required: true,

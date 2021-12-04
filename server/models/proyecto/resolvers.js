@@ -19,6 +19,17 @@ const resolversProyectos = {
         console.error(error);
       }
     },
+
+    obtenerProyectosLider: async (parent, args) => {
+      try {
+        const proyectos = await Proyecto.find({
+          lider: `${args._id}`,
+        }).populate('lider');
+        return proyectos;
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
 
   Mutation: {
