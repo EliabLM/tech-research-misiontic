@@ -1,6 +1,8 @@
 const { gql } = require('apollo-server');
 
 const tiposInscripcion = gql`
+  scalar Date
+
   enum Enum_EstadoInscripcion {
     ACEPTADA
     RECHAZADA
@@ -9,11 +11,11 @@ const tiposInscripcion = gql`
 
   type Inscripcion {
     _id: ID!
+    proyecto: Proyecto!
+    estudiante: Usuario!
     estado: Enum_EstadoInscripcion
     fechaIngreso: Date
     fechaEgreso: Date
-    proyecto: Proyecto
-    estudiante: Usuario
   }
 
   type Query {
@@ -22,11 +24,11 @@ const tiposInscripcion = gql`
   }
 
   type Mutation {
-    crearInscripcion(
+    crearInscripcion(proyecto: String!, estudiante: String!): Inscripcion
+
+    cambiarEstadoInscripcion(
+      _id: ID!
       estado: Enum_EstadoInscripcion!
-      fechaIngreso: Date
-      proyecto: String!
-      estudiante: String!
     ): Inscripcion
   }
 `;

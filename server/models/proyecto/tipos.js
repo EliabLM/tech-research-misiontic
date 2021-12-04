@@ -16,7 +16,7 @@ const tiposProyecto = gql`
   }
 
   type Proyecto {
-    _id: ID
+    _id: ID!
     nombre: String!
     objetivosGenerales: [String]!
     objetivosEspecificos: [String]!

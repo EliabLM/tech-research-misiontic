@@ -29,13 +29,23 @@ const resolversInscripcion = {
     crearInscripcion: async (parent, args) => {
       try {
         const inscripcionNueva = await Inscripcion.create({
-          nombre: args.nombre,
-          estado: args.estado,
-          fechaIngreso: args.fechaIngreso,
           proyecto: args.proyecto,
           estudiante: args.estudiante,
         });
         return inscripcionNueva;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    cambiarEstadoInscripcion: async (parent, args) => {
+      try {
+        const inscripcion = await Inscripcion.findByIdAndUpdate(args._id, {
+          estado: args.estado,
+        })
+          .populate('estudiante')
+          .populate('proyecto');
+        return inscripcion;
       } catch (error) {
         console.error(error);
       }

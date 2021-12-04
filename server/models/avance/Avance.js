@@ -1,9 +1,4 @@
 const { Schema, model } = require('mongoose');
-const {
-  Enum_FaseProyecto,
-  Enum_EstadoProyecto,
-  Enum_Rol,
-} = require('../enums');
 
 const AvanceSchema = Schema({
   proyecto: {
@@ -28,7 +23,6 @@ const AvanceSchema = Schema({
 
   observaciones: {
     type: String,
-    required: true,
     unique: true,
     trim: true,
   },

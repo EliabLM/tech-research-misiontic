@@ -24,13 +24,11 @@ const InscripcionSchema = Schema({
 
   fechaIngreso: {
     type: Date,
-    required: true,
     trim: true,
   },
 
   fechaEgreso: {
     type: Date,
-    required: true,
     trim: true,
   },
 });
