@@ -1,38 +1,13 @@
-const Usuario = require('../models/Usuario');
+const resolversProyectos = require('../models/proyecto/resolvers');
+const resolversUsuarios = require('../models/usuario/resolvers');
+const resolversInscripcion = require('../models/inscripcion/resolvers');
+const resolversAvances = require('../models/avance/resolvers');
 
-const resolvers = {
-  Query: {
-    getUsuarios: async () => {
-      try {
-        const usuarios = await Usuario.find({});
-        return usuarios;
-      } catch (error) {
-        console.error(error);
-      }
-    },
-  },
-
-  Mutation: {
-    crearUsuario: async (parent, args) => {
-      const { identificacion, nombre, apellido, email, password, estado, rol } =
-        args;
-
-      try {
-        const usuarioNuevo = await Usuario.create({
-          identificacion,
-          nombre,
-          apellido,
-          email,
-          password,
-          rol,
-          estado,
-        });
-        return usuarioNuevo;
-      } catch (error) {
-        console.error(error);
-      }
-    },
-  },
-};
+const resolvers = [
+  resolversProyectos,
+  resolversUsuarios,
+  resolversInscripcion,
+  resolversAvances,
+];
 
 module.exports = resolvers;

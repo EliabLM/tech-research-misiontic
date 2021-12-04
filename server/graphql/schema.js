@@ -1,45 +1,7 @@
-const { gql } = require('apollo-server');
+const tiposUsuario = require('../models/usuario/tipos');
+const tiposProyecto = require('../models/proyecto/tipos');
+const tiposAvance = require('../models/avance/tipos');
+const tiposInscripcion = require('../models/inscripcion/tipos');
 
-const typeDefs = gql`
-  enum Enum_EstadoUsuario {
-    PENDIENTE
-    NO_AUTORIZADO
-    AUTORIZADO
-  }
-
-  enum Enum_Rol {
-    ADMINISTRADOR
-    LIDER
-    ESTUDIANTE
-  }
-
-  type Usuario {
-    _id: ID
-    identificacion: String!
-    nombre: String!
-    apellido: String!
-    email: String!
-    password: String!
-    rol: Enum_Rol!
-    estado: Enum_EstadoUsuario
-  }
-
-  type Query {
-    getUsuarios: [Usuario]
-  }
-
-  type Mutation {
-    crearUsuario(
-      _id: ID
-      identificacion: String!
-      nombre: String!
-      apellido: String!
-      email: String!
-      password: String!
-      rol: Enum_Rol!
-      estado: Enum_EstadoUsuario
-    ): Usuario
-  }
-`;
-
+const typeDefs = [tiposUsuario, tiposProyecto, tiposAvance, tiposInscripcion];
 module.exports = typeDefs;
