@@ -20,6 +20,15 @@ const resolversUsuarios = {
         console.error(error);
       }
     },
+
+    obtenerEstudiantes: async () => {
+      try {
+        const estudiantes = await Usuario.find({ rol: 'ESTUDIANTE' });
+        return estudiantes;
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
 
   Mutation: {

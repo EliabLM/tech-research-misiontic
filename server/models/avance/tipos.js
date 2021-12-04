@@ -3,30 +3,13 @@ const { gql } = require('apollo-server');
 const tiposAvance = gql`
   scalar Date
 
-  enum Enum_FaseProyecto {
-    INICIADO
-    DESARROLLO
-    TERMINADO
-    NULO
-  }
-
-  enum Enum_EstadoProyecto {
-    ACTIVO
-    INACTIVO
-  }
-
-  enum Enum_Rol {
-    ADMINISTRADOR
-    LIDER
-    ESTUDIANTE
-  }
-
   type Avance {
-    idProyecto: ID!
-    fechaAvance: Date!
+    _id: ID!
+    proyecto: Proyecto!
+    fecha: Date!
     descripcion: String!
-    observacionesLider: String!
-    estudiante: Usuario
+    observaciones: String!
+    estudiante: Usuario!
   }
 
   type Query {
@@ -36,18 +19,16 @@ const tiposAvance = gql`
 
   type Mutation {
     crearAvance(
-      rol: Enum_Rol!
-      fechaAvance: Date!
+      proyecto: String!
+      fecha: Date!
       descripcion: String!
+      observaciones: String
       estudiante: String!
     ): Avance
 
-    editarAvance(
-      rol: Enum_Rol!
-      _id: ID!
-      observacionesLider: String!
-      lider: String!
-    ): Avance
+    editarDescripcion(_id: ID!, descripcion: String!): Avance
+
+    agregarObservacion(_id: ID!, observaciones: String!): Avance
   }
 `;
 
