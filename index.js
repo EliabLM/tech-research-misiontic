@@ -1,22 +1,31 @@
-const { ApolloServer } = require('apollo-server');
+const express = require('express');
+const cors = require('cors');
+const { ApolloServer } = require('apollo-server-express');
 const typeDefs = require('./graphql/schema');
 const resolvers = require('./graphql/resolvers');
 const connectDB = require('./database/db');
-require('dotenv').config({ path: '.env' });
+const dotenv = require('dotenv');
 
-// Conectar base de datos
-connectDB();
+dotenv.config();
 
-// Crear el servidor
 const server = new ApolloServer({
   typeDefs,
   resolvers,
 });
 
-// Puerto
+const app = express();
+
+app.use(express.json());
+
+app.use(cors());
+
 const PORT = process.env.PORT || 4000;
 
-// Arrancar el servidor
-server.listen({ port: PORT }).then(({ url }) => {
-  console.log(`Servidor corriendo en la url ${url}`);
+app.listen({ port: PORT }, async () => {
+  await connectDB();
+  await server.start();
+
+  server.applyMiddleware({ app });
+
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
