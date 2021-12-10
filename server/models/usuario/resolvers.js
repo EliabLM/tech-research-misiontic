@@ -8,7 +8,7 @@ const resolversUsuarios = {
         const usuarios = await Usuario.find({});
         return usuarios;
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     },
 
@@ -17,7 +17,7 @@ const resolversUsuarios = {
         const usuario = await Usuario.findById({ _id: args._id });
         return usuario;
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     },
 
@@ -26,7 +26,7 @@ const resolversUsuarios = {
         const estudiantes = await Usuario.find({ rol: 'ESTUDIANTE' });
         return estudiantes;
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     },
   },
@@ -44,7 +44,7 @@ const resolversUsuarios = {
 
         return usuarioNuevo;
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     },
 
@@ -62,7 +62,7 @@ const resolversUsuarios = {
 
         return usuarioEditado;
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     },
 
@@ -73,7 +73,7 @@ const resolversUsuarios = {
         });
         return usuario;
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     },
 
@@ -85,9 +85,33 @@ const resolversUsuarios = {
 
         return usuarioEliminado;
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     },
+
+    loginUser: async (_, { email, password }) => {
+      const user = await Usuario.findOne({ email: email })
+      // console.log("Consulta hecha", email, password)
+      if (!user) {
+        return {
+          success: false,
+          message: "Usuario no encontrado",
+        }
+      }
+
+      if (user.password !== password) {
+        return {
+          success: false,
+          message: "Contraseña no valida",
+        }
+      }
+
+      return {
+        success: true,
+        message: "Usuario autenticado",
+        usuario: user
+      }
+    }
   },
 };
 

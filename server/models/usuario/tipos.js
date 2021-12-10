@@ -52,7 +52,16 @@ const tiposUsuario = gql`
     cambiarEstadoUsuario(_id: ID!, estado: Enum_EstadoUsuario!): Usuario
 
     eliminarUsuario(_id: ID!): Usuario
+
+    loginUser(email: String!, password: String!): responseAuthentication!
   }
+
+  type responseAuthentication {
+    success: Boolean!
+    message: String!
+    usuario: Usuario
+  }
+
 `;
 
 module.exports = tiposUsuario;
