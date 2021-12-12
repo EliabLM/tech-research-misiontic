@@ -38,7 +38,7 @@ const tiposUsuario = gql`
       email: String!
       password: String!
       rol: Enum_Rol!
-    ): Usuario
+    ): responseAuthentication
 
     editarUsuario(
       _id: ID!
@@ -54,14 +54,16 @@ const tiposUsuario = gql`
     eliminarUsuario(_id: ID!): Usuario
 
     loginUser(email: String!, password: String!): responseAuthentication!
+
+    verificarToken(token: String!): responseAuthentication!
   }
 
   type responseAuthentication {
     success: Boolean!
     message: String!
     usuario: Usuario
+    token: String
   }
-
 `;
 
 module.exports = tiposUsuario;
