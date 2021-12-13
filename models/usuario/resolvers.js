@@ -33,7 +33,6 @@ const resolversUsuarios = {
   },
 
   Mutation: {
-    // ========== USUARIOS ==========
     crearUsuario: async (__, args) => {
       try {
         const usuarioNuevo = new Usuario(args);
@@ -58,15 +57,19 @@ const resolversUsuarios = {
 
     editarUsuario: async (_, args) => {
       try {
-        const usuarioEditado = await Usuario.findByIdAndUpdate(args._id, {
-          nombre: args.nombre,
-          identificacion: args.identificacion,
-          apellido: args.apellido,
-          email: args.email,
-          password: args.password,
-          rol: args.rol,
-          estado: args.estado,
-        });
+        const usuarioEditado = await Usuario.findByIdAndUpdate(
+          args._id,
+          {
+            nombre: args.nombre,
+            identificacion: args.identificacion,
+            apellido: args.apellido,
+            email: args.email,
+            password: args.password,
+            rol: args.rol,
+            estado: args.estado,
+          },
+          { new: true }
+        );
 
         return usuarioEditado;
       } catch (error) {
