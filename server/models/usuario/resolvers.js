@@ -108,7 +108,7 @@ const resolversUsuarios = {
           }
         }
 
-        if (!bcryptjs.compare(user.password, password)) {
+        if (!bcryptjs.compare(user.password, password) || password === "") {
           return {
             success: false,
             message: "Contraseña no valida",
