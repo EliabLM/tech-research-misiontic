@@ -41,7 +41,7 @@ const tiposUsuario = gql`
     ): responseAuthentication
 
     editarUsuario(
-      _id: ID!
+      _id: String!
       identificacion: String
       nombre: String
       apellido: String
@@ -49,9 +49,9 @@ const tiposUsuario = gql`
       password: String
     ): Usuario
 
-    cambiarEstadoUsuario(_id: ID!, estado: Enum_EstadoUsuario!): Usuario
+    cambiarEstadoUsuario(_id: String!, estado: String!): Usuario
 
-    eliminarUsuario(_id: ID!): Usuario
+    eliminarUsuario(_id: String!): Usuario
 
     loginUser(email: String!, password: String!): responseAuthentication!
 

@@ -1,7 +1,6 @@
 const Usuario = require('./Usuario');
 const bcryptjs = require('bcryptjs');
-const { genToken, verifyToken } = require('../../utils.js/tokens');
-
+const { genToken, verifyToken } = require('../../utils/tokens');
 
 const resolversUsuarios = {
   Query: {
@@ -34,7 +33,6 @@ const resolversUsuarios = {
   },
 
   Mutation: {
-    // ========== USUARIOS ==========
     crearUsuario: async (__, args) => {
       try {
         const usuarioNuevo = new Usuario(args);
@@ -44,14 +42,14 @@ const resolversUsuarios = {
 
         await usuarioNuevo.save();
 
-        const { _id, nombre, apellido, rol, estado } = usuarioNuevo
+        const { _id, nombre, apellido, rol, estado } = usuarioNuevo;
 
         return {
           success: true,
-          message: "Usuario autenticado",
+          message: 'Usuario autenticado',
           usuario: usuarioNuevo,
-          token: genToken({ _id, nombre, apellido, rol, estado })
-        }
+          token: genToken({ _id, nombre, apellido, rol, estado }),
+        };
       } catch (error) {
         console.error(error);
       }
@@ -59,15 +57,19 @@ const resolversUsuarios = {
 
     editarUsuario: async (_, args) => {
       try {
-        const usuarioEditado = await Usuario.findByIdAndUpdate(args._id, {
-          nombre: args.nombre,
-          identificacion: args.identificacion,
-          apellido: args.apellido,
-          email: args.email,
-          password: args.password,
-          rol: args.rol,
-          estado: args.estado,
-        });
+        const usuarioEditado = await Usuario.findByIdAndUpdate(
+          args._id,
+          {
+            nombre: args.nombre,
+            identificacion: args.identificacion,
+            apellido: args.apellido,
+            email: args.email,
+            password: args.password,
+            rol: args.rol,
+            estado: args.estado,
+          },
+          { new: true }
+        );
 
         return usuarioEditado;
       } catch (error) {
@@ -100,12 +102,12 @@ const resolversUsuarios = {
 
     loginUser: async (_, { email, password }) => {
       try {
-        const user = await Usuario.findOne({ email: email })
+        const user = await Usuario.findOne({ email: email });
         if (!user) {
           return {
             success: false,
-            message: "Usuario no encontrado",
-          }
+            message: 'Usuario no encontrado',
+          };
         }
 
 
@@ -113,42 +115,42 @@ const resolversUsuarios = {
         if (!await bcryptjs.compare(password, user.password)) {
           return {
             success: false,
-            message: "Contraseña no valida",
-          }
+            message: 'Contraseña no valida',
+          };
         }
 
-        const { _id, nombre, apellido, rol, estado } = user
+        const { _id, nombre, apellido, rol, estado } = user;
 
         return {
           success: true,
-          message: "Usuario autenticado",
+          message: 'Usuario autenticado',
           usuario: user,
-          token: genToken({ _id, nombre, apellido, rol, estado })
-        }
+          token: genToken({ _id, nombre, apellido, rol, estado }),
+        };
       } catch (error) {
         console.log(error);
       }
     },
 
     verificarToken: async (_, { token }) => {
-      const resp = await verifyToken(token)
+      const resp = await verifyToken(token);
 
-      if (typeof (resp) === typeof ({})) {
+      if (typeof resp === typeof {}) {
         return {
           success: false,
           message: resp.message,
-        }
+        };
       }
 
-      const user = await Usuario.findOne(JSON.parse(resp))
+      const user = await Usuario.findOne(JSON.parse(resp));
 
       return {
         success: true,
-        message: "Usuario autenticado",
+        message: 'Usuario autenticado',
         usuario: user,
-        token
-      }
-    }
+        token,
+      };
+    },
   },
 };
 
