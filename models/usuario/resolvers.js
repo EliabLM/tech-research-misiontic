@@ -110,7 +110,9 @@ const resolversUsuarios = {
           };
         }
 
-        if (!bcryptjs.compare(user.password, password)) {
+
+
+        if (!await bcryptjs.compare(password, user.password)) {
           return {
             success: false,
             message: 'Contraseña no valida',
